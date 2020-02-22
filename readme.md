@@ -60,3 +60,4 @@ func (hm *HgoMux) PATCH(pattern string, handle HgoHandleFunc) {
 	hm.POST("/user/:name([a-z])+", sayHi)
 	http.ListenAndServe(":4000", hm)
 ```
+该框架类似于httpRouter但是实现了更复杂的参数匹配
