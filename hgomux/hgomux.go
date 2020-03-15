@@ -1,4 +1,4 @@
-package hgomux
+package ServMux
 
 import (
 	// "fmt"
@@ -13,8 +13,8 @@ import (
 //HgoHandleFunc 定义了处理请求的函数格式
 type HgoHandleFunc func(hc *HgoContext)
 
-//HgoMux 实现hgo的mux
-type HgoMux struct {
+//ServMux 实现hgo的mux
+type ServMux struct {
 	mu      sync.RWMutex
 	routers map[string]hgoRouter //map[METHOD]map[path]hgoEntry
 }
@@ -35,15 +35,15 @@ type HgoContext struct {
 	Parms map[string]string //url中匹配的名字和对应的内容
 }
 
-//NewHgoMux 生成新的HgoMux
-func NewHgoMux() *HgoMux {
-	return &HgoMux{
+//NewServMux 生成新的ServMux
+func NewServMux() *ServMux {
+	return &ServMux{
 		routers: make(map[string]hgoRouter),
 	}
 }
 
 //处理http请求以及路由转发
-func (hm *HgoMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (hm *ServMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	//判断是否存在对应的方法池
 	router, ok := hm.routers[r.Method]
@@ -77,7 +77,7 @@ func (hm *HgoMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // 	reg    *regexp.Regexp //编译好的正则表达式，用来匹配请求路径
 // 	handle HgoHandleFunc
 // }
-func registe(hm *HgoMux, method, pattern string, handle HgoHandleFunc) {
+func registe(hm *ServMux, method, pattern string, handle HgoHandleFunc) {
 
 	//匹配path信息处理，构成regexp和一个parm信息
 	//例如/user/:name/:id([0-9]+)/:num([0-9]+)
@@ -130,46 +130,46 @@ func registe(hm *HgoMux, method, pattern string, handle HgoHandleFunc) {
 }
 
 //GET 方法处理的路由映射及方法
-func (hm *HgoMux) GET(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) GET(pattern string, handle HgoHandleFunc) {
 	registe(hm, "GET", pattern, handle)
 }
 
 //HEAD 方法处理的路由映射及方法
-func (hm *HgoMux) HEAD(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) HEAD(pattern string, handle HgoHandleFunc) {
 	registe(hm, "HEAD", pattern, handle)
 }
 
 //POST 方法处理的路由映射及方法
-func (hm *HgoMux) POST(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) POST(pattern string, handle HgoHandleFunc) {
 	registe(hm, "POST", pattern, handle)
 }
 
 //PUT 方法处理的路由映射及方法
-func (hm *HgoMux) PUT(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) PUT(pattern string, handle HgoHandleFunc) {
 	registe(hm, "PUT", pattern, handle)
 }
 
 //DELETE 方法处理的路由映射及方法
-func (hm *HgoMux) DELETE(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) DELETE(pattern string, handle HgoHandleFunc) {
 	registe(hm, "DELETE", pattern, handle)
 }
 
 //CONNECT 方法处理的路由映射及方法
-func (hm *HgoMux) CONNECT(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) CONNECT(pattern string, handle HgoHandleFunc) {
 	registe(hm, "CONNECT", pattern, handle)
 }
 
 //OPTIONS 方法处理的路由映射及方法
-func (hm *HgoMux) OPTIONS(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) OPTIONS(pattern string, handle HgoHandleFunc) {
 	registe(hm, "OPTIONS", pattern, handle)
 }
 
 //TRACE 方法处理的路由映射及方法
-func (hm *HgoMux) TRACE(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) TRACE(pattern string, handle HgoHandleFunc) {
 	registe(hm, "TRACE", pattern, handle)
 }
 
 //PATCH 方法处理的路由映射及方法
-func (hm *HgoMux) PATCH(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) PATCH(pattern string, handle HgoHandleFunc) {
 	registe(hm, "PATCH", pattern, handle)
 }

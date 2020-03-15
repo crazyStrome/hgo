@@ -3,47 +3,47 @@
 ##  HgoMutex实现了自定义的路由转发功能
 ```
 //GET 方法处理的路由映射及方法
-func (hm *HgoMux) GET(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) GET(pattern string, handle HgoHandleFunc) {
 	registe(hm, "GET", pattern, handle)
 }
 
 //HEAD 方法处理的路由映射及方法
-func (hm *HgoMux) HEAD(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) HEAD(pattern string, handle HgoHandleFunc) {
 	registe(hm, "HEAD", pattern, handle)
 }
 
 //POST 方法处理的路由映射及方法
-func (hm *HgoMux) POST(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) POST(pattern string, handle HgoHandleFunc) {
 	registe(hm, "POST", pattern, handle)
 }
 
 //PUT 方法处理的路由映射及方法
-func (hm *HgoMux) PUT(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) PUT(pattern string, handle HgoHandleFunc) {
 	registe(hm, "PUT", pattern, handle)
 }
 
 //DELETE 方法处理的路由映射及方法
-func (hm *HgoMux) DELETE(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) DELETE(pattern string, handle HgoHandleFunc) {
 	registe(hm, "DELETE", pattern, handle)
 }
 
 //CONNECT 方法处理的路由映射及方法
-func (hm *HgoMux) CONNECT(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) CONNECT(pattern string, handle HgoHandleFunc) {
 	registe(hm, "CONNECT", pattern, handle)
 }
 
 //OPTIONS 方法处理的路由映射及方法
-func (hm *HgoMux) OPTIONS(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) OPTIONS(pattern string, handle HgoHandleFunc) {
 	registe(hm, "OPTIONS", pattern, handle)
 }
 
 //TRACE 方法处理的路由映射及方法
-func (hm *HgoMux) TRACE(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) TRACE(pattern string, handle HgoHandleFunc) {
 	registe(hm, "TRACE", pattern, handle)
 }
 
 //PATCH 方法处理的路由映射及方法
-func (hm *HgoMux) PATCH(pattern string, handle HgoHandleFunc) {
+func (hm *ServMux) PATCH(pattern string, handle HgoHandleFunc) {
 	registe(hm, "PATCH", pattern, handle)
 }
 ```
@@ -55,7 +55,7 @@ func (hm *HgoMux) PATCH(pattern string, handle HgoHandleFunc) {
 可以使用如下代码进行初始化
 
 ```
-	hm := hgomux.NewHgoMux()
+	hm := ServMux.NewServMux()
 	hm.GET("/user/:name/:year", sayHello)
 	hm.POST("/user/:name([a-z])+", sayHi)
 	http.ListenAndServe(":4000", hm)
